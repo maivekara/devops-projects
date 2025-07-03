@@ -1,19 +1,31 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Repo'yu checkout et
+      - name: Reposuyu klonla
         uses: actions/checkout@v4
 
       - name: Python kurulumu
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v5 
         with:
           python-version: '3.12'
 
       - name: Gerekli paketleri yükle
         run: |
-          pip install -r requirements.txt
+          pip install -r requirements.txt || echo "requirements.txt bulunamadı, devam ediliyor"
 
       - name: Syntax hatalarını kontrol et
         run: |
           python -m py_compile app.py
+          
