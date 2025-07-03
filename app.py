@@ -1,10 +1,12 @@
-from flask import Flask, jsonify
+import json
 
-app = Flask(__name__)
+def get_users():
+    users = [
+        {"id": 1, "name": "Sefa", "role": "developer"},
+        {"id": 2, "name": "Elif", "role": "designer"},
+        {"id": 3, "name": "Ahmet", "role": "manager"}
+    ]
+    return json.dumps(users, indent=2)
 
-@app.route('/api/status')
-def status():
-    return jsonify({"status": "OK", "message": "API çalışıyor! 🚀"})
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    print(get_users())
