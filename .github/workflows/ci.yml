@@ -1,15 +1,19 @@
-name: CI Pipeline
-on: [push]
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: Simple Test
+      - name: Repo'yu checkout et
+        uses: actions/checkout@v4
+
+      - name: Python kurulumu
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Gerekli paketleri yükle
         run: |
-          echo "Proje dosyaları:"
-          ls -la
-          echo "Python sürümü:"
-          python --version
+          pip install -r requirements.txt
+
+      - name: Syntax hatalarını kontrol et
+        run: |
+          python -m py_compile app.py
